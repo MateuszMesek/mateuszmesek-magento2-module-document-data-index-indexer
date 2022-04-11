@@ -84,36 +84,79 @@
             <argument name="schema" xsi:type="string">document_data_indexer.xsd</argument>
         </arguments>
     </virtualType>
-    <!-- plugin -->
+    <!-- indexer -->
     <type name="Magento\Framework\Indexer\Config\Reader">
         <plugin name="MateuszMesek_DocumentDataIndexIndexer" type="MateuszMesek\DocumentDataIndexIndexer\Plugin\InjectIndexers\OnIndexerConfigReader"/>
     </type>
-    <type name="Magento\Framework\Mview\Config\Reader">
-        <plugin name="MateuszMesek_DocumentDataIndexIndexer" type="MateuszMesek\DocumentDataIndexIndexer\Plugin\InjectViews\OnViewConfigReader"/>
-    </type>
-    <!-- action -->
     <type name="MateuszMesek\DocumentDataIndexIndexer\Action\ExecutorFactory">
         <arguments>
             <argument name="types" xsi:type="array">
-                <item name="full" xsi:type="string">MateuszMesek\DocumentDataIndex\Action\Full</item>
-                <item name="row" xsi:type="string">MateuszMesek\DocumentDataIndex\Action\Row</item>
-                <item name="rows" xsi:type="string">MateuszMesek\DocumentDataIndex\Action\Rows</item>
+                <item name="full" xsi:type="string">MateuszMesek\DocumentDataIndexIndexer\Action\Full</item>
+                <item name="row" xsi:type="string">MateuszMesek\DocumentDataIndexIndexer\Action\Row</item>
+                <item name="rows" xsi:type="string">MateuszMesek\DocumentDataIndexIndexer\Action\Rows</item>
             </argument>
         </arguments>
     </type>
     <type name="MateuszMesek\DocumentDataIndexIndexer\Action\Full">
         <arguments>
-            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndex\DimensionalIndexer</argument>
+            <argument name="entityIdsResolver" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\EntityIdsResolver</argument>
+            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DimensionalIndexer</argument>
         </arguments>
     </type>
     <type name="MateuszMesek\DocumentDataIndexIndexer\Action\Row">
         <arguments>
-            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndex\DimensionalIndexer</argument>
+            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DimensionalIndexer</argument>
         </arguments>
     </type>
     <type name="MateuszMesek\DocumentDataIndexIndexer\Action\Rows">
         <arguments>
-            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndex\DimensionalIndexer</argument>
+            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DimensionalIndexer</argument>
         </arguments>
+    </type>
+    <virtualType name="MateuszMesek\DocumentDataIndexIndexer\EntityIdsResolver" type="MateuszMesek\DocumentDataIndex\EntityIdsResolver">
+        <arguments>
+            <argument name="entityIdsResolverFactory" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\EntityIdsResolverFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MateuszMesek\DocumentDataIndexIndexer\EntityIdsResolverFactory" type="MateuszMesek\DocumentDataIndex\EntityIdsResolverFactory">
+        <arguments>
+            <argument name="config" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\Config</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MateuszMesek\DocumentDataIndexIndexer\DimensionalIndexer" type="MateuszMesek\DocumentDataIndex\DimensionalIndexer">
+        <arguments>
+            <argument name="dataResolver" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DataResolver</argument>
+            <argument name="saveHandler" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\SaveHandler</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MateuszMesek\DocumentDataIndexIndexer\DataResolver" type="MateuszMesek\DocumentDataIndex\DataResolver">
+        <arguments>
+            <argument name="dataResolverFactory" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DataResolverFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MateuszMesek\DocumentDataIndexIndexer\DataResolverFactory" type="MateuszMesek\DocumentDataIndex\DataResolverFactory">
+        <arguments>
+            <argument name="config" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\Config</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MateuszMesek\DocumentDataIndexIndexer\SaveHandler" type="MateuszMesek\DocumentDataIndex\SaveHandler">
+        <arguments>
+            <argument name="saveHandlerFactory" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\SaveHandlerFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MateuszMesek\DocumentDataIndexIndexer\SaveHandlerFactory" type="MateuszMesek\DocumentDataIndex\SaveHandlerFactory">
+        <arguments>
+            <argument name="config" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\Config</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="MateuszMesek\DocumentDataIndex\IndexNameResolverFactory">
+        <arguments>
+            <argument name="config" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\Config</argument>
+        </arguments>
+    </type>
+    <!-- mview -->
+    <type name="Magento\Framework\Mview\Config\Reader">
+        <plugin name="MateuszMesek_DocumentDataIndexIndexer" type="MateuszMesek\DocumentDataIndexIndexer\Plugin\InjectViews\OnViewConfigReader"/>
     </type>
 </config>

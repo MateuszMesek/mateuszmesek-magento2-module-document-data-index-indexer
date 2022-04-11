@@ -4,9 +4,11 @@ namespace MateuszMesek\DocumentDataIndexIndexer;
 
 use Magento\Framework\Config\DataInterface;
 use MateuszMesek\DocumentDataIndexApi\Config\DataResolverInterface;
+use MateuszMesek\DocumentDataIndexApi\Config\EntityIdsResolverInterface;
+use MateuszMesek\DocumentDataIndexApi\Config\IndexNameResolverInterface;
 use MateuszMesek\DocumentDataIndexApi\Config\SaveHandlerInterface;
 
-class Config implements DataResolverInterface, SaveHandlerInterface
+class Config implements DataResolverInterface, SaveHandlerInterface, IndexNameResolverInterface, EntityIdsResolverInterface
 {
     private DataInterface $data;
 
@@ -34,7 +36,7 @@ class Config implements DataResolverInterface, SaveHandlerInterface
         return $this->data->get("$documentName/dimensionProvider");
     }
 
-    public function getEntityIdsResolver(string $documentName): string
+    public function getEntityIdsResolver(string $documentName): ?string
     {
         return $this->data->get("$documentName/entityIdsResolver");
     }
@@ -44,7 +46,7 @@ class Config implements DataResolverInterface, SaveHandlerInterface
         return $this->data->get("$documentName/indexNamesProvider");
     }
 
-    public function getIndexNameResolver(string $documentName): string
+    public function getIndexNameResolver(string $documentName): ?string
     {
         return $this->data->get("$documentName/indexNameResolver");
     }
