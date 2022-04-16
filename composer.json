@@ -6,7 +6,7 @@
         "ext-dom": "*",
         "magento/framework": "*",
         "magento/module-indexer": "*",
-        "mateuszmesek-magento2/module-document-data-index-api": "*"
+        "mateuszmesek-magento2/module-document-data-index-indexer-api": "*"
     },
     "license": [
         "MIT"
