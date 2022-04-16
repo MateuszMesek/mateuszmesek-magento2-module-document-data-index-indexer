@@ -67,6 +67,13 @@
     </type>
     <!-- default configuration -->
     <preference for="MateuszMesek\DocumentDataIndexIndexerApi\Command\GetIndexNamesInterface" type="MateuszMesek\DocumentDataIndexIndexer\Command\GetIndexNames"/>
+    <type name="MateuszMesek\DocumentDataIndexIndexer\Dimension\Factory">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="node-paths" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\Dimension\NodePathsFactory</item>
+            </argument>
+        </arguments>
+    </type>
     <preference for="MateuszMesek\DocumentDataIndexIndexerApi\DataResolverInterface" type="MateuszMesek\DocumentDataIndexIndexer\DataResolver"/>
     <type name="MateuszMesek\DocumentDataIndexIndexer\DataResolver">
         <arguments>
@@ -74,6 +81,11 @@
         </arguments>
     </type>
     <type name="MateuszMesek\DocumentDataIndexIndexer\DataResolverFactory">
+        <arguments>
+            <argument name="config" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\Config</argument>
+        </arguments>
+    </type>
+    <type name="MateuszMesek\DocumentDataIndexIndexer\DimensionProviderFactory">
         <arguments>
             <argument name="config" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\Config</argument>
         </arguments>

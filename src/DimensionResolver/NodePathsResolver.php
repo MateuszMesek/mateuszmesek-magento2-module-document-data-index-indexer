@@ -27,8 +27,14 @@ class NodePathsResolver implements DimensionResolverInterface
             return null;
         }
 
-        return $this->serializer->unserialize(
+        $value = $this->serializer->unserialize(
             $dimensions[WithNodePathsProvider::DIMENSION_NAME]->getValue()
         );
+
+        if (empty($value)) {
+            $value = null;
+        }
+
+        return $value;
     }
 }

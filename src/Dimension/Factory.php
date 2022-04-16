@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MateuszMesek\DocumentDataIndexIndexer\DimensionProvider;
+namespace MateuszMesek\DocumentDataIndexIndexer\Dimension;
 
 use Magento\Framework\Indexer\Dimension;
 use Magento\Framework\Indexer\DimensionFactory;
@@ -22,7 +22,7 @@ class Factory
     public function create(string $name, $value): Dimension
     {
         if (isset($this->factories[$name])) {
-            return $this->factories[$name]->create($name, $value);
+            return $this->factories[$name]->create($value);
         }
 
         return $this->dimensionFactory->create($name, (string)$value);

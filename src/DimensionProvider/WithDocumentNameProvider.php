@@ -3,6 +3,7 @@
 namespace MateuszMesek\DocumentDataIndexIndexer\DimensionProvider;
 
 use Magento\Framework\Indexer\DimensionProviderInterface;
+use MateuszMesek\DocumentDataIndexIndexer\Dimension\Factory;
 use Traversable;
 
 class WithDocumentNameProvider implements DimensionProviderInterface
@@ -16,7 +17,7 @@ class WithDocumentNameProvider implements DimensionProviderInterface
     public function __construct(
         string                     $documentName,
         DimensionProviderInterface $dimensionProvider,
-        Factory           $factory
+        Factory                    $factory
     )
     {
         $this->documentName = $documentName;
