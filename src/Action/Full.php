@@ -4,7 +4,7 @@ namespace MateuszMesek\DocumentDataIndexIndexer\Action;
 
 use Magento\Framework\Indexer\DimensionalIndexerInterface;
 use Magento\Framework\Indexer\DimensionProviderInterface;
-use MateuszMesek\DocumentDataIndexApi\EntityIdsResolverInterface;
+use MateuszMesek\DocumentDataIndexIndexerApi\EntityIdsResolverInterface;
 
 class Full implements ExecutorInterface
 {

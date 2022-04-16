@@ -3,12 +3,13 @@
 namespace MateuszMesek\DocumentDataIndexIndexer;
 
 use Magento\Framework\Config\DataInterface;
-use MateuszMesek\DocumentDataIndexApi\Config\DataResolverInterface;
-use MateuszMesek\DocumentDataIndexApi\Config\EntityIdsResolverInterface;
-use MateuszMesek\DocumentDataIndexApi\Config\IndexNameResolverInterface;
-use MateuszMesek\DocumentDataIndexApi\Config\SaveHandlerInterface;
+use MateuszMesek\DocumentDataIndexIndexerApi\Config\DataResolverInterface;
+use MateuszMesek\DocumentDataIndexIndexerApi\Config\DimensionProviderInterface;
+use MateuszMesek\DocumentDataIndexIndexerApi\Config\EntityIdsResolverInterface;
+use MateuszMesek\DocumentDataIndexIndexerApi\Config\IndexNameResolverInterface;
+use MateuszMesek\DocumentDataIndexIndexerApi\Config\SaveHandlerInterface;
 
-class Config implements DataResolverInterface, SaveHandlerInterface, IndexNameResolverInterface, EntityIdsResolverInterface
+class Config implements DimensionProviderInterface, DataResolverInterface, SaveHandlerInterface, IndexNameResolverInterface, EntityIdsResolverInterface
 {
     private DataInterface $data;
 
@@ -31,7 +32,7 @@ class Config implements DataResolverInterface, SaveHandlerInterface, IndexNameRe
         return $this->data->get("$documentName/action") ?: Action::class;
     }
 
-    public function getDimensionProvider(string $documentName): string
+    public function getDimensionProvider(string $documentName): ?string
     {
         return $this->data->get("$documentName/dimensionProvider");
     }

@@ -2,39 +2,35 @@
 
 namespace MateuszMesek\DocumentDataIndexIndexer\Action;
 
-use InvalidArgumentException;
 use Magento\Framework\Indexer\DimensionProviderInterface;
 use Magento\Framework\ObjectManagerInterface;
-use MateuszMesek\DocumentDataIndexIndexer\Config;
+use MateuszMesek\DocumentDataIndexIndexer\DimensionProvider\WithDocumentNameProvider;
+use MateuszMesek\DocumentDataIndexIndexer\DimensionProviderFactory as DocumentDimensionProviderFactory;
 
 class DimensionProviderFactory
 {
-    private Config $config;
+    private DocumentDimensionProviderFactory $dimensionProviderFactory;
     private ObjectManagerInterface $objectManager;
 
     public function __construct(
-        Config $config,
-        ObjectManagerInterface $objectManager
+        DocumentDimensionProviderFactory $dimensionProviderFactory,
+        ObjectManagerInterface           $objectManager
     )
     {
-        $this->config = $config;
+        $this->dimensionProviderFactory = $dimensionProviderFactory;
         $this->objectManager = $objectManager;
     }
 
     public function create(string $documentName): DimensionProviderInterface
     {
-        $type = $this->config->getDimensionProvider($documentName);
+        $dimensionProvider = $this->dimensionProviderFactory->create($documentName);
 
-        $dimensionProvider = $this->objectManager->create($type);
-
-        if (!$dimensionProvider instanceof DimensionProviderInterface) {
-            $interfaceName = DimensionProviderInterface::class;
-
-            throw new InvalidArgumentException(
-                "$type doesn't implement $interfaceName"
-            );
-        }
-
-        return $dimensionProvider;
+        return $this->objectManager->create(
+            WithDocumentNameProvider::class,
+            [
+                'documentName' => $documentName,
+                'dimensionProvider' => $dimensionProvider
+            ]
+        );
     }
 }
