@@ -20,7 +20,7 @@
         <xs:annotation>
             <xs:documentation>Document declaration.</xs:documentation>
         </xs:annotation>
-        <xs:sequence>
+        <xs:all>
             <xs:element name="action" type="object" minOccurs="0" maxOccurs="1"/>
             <xs:element name="dimensionProvider" type="object" minOccurs="0" maxOccurs="1"/>
             <xs:element name="entityIdsResolver" type="object" minOccurs="0" maxOccurs="1"/>
@@ -28,7 +28,7 @@
             <xs:element name="indexNameResolver" type="object" minOccurs="0" maxOccurs="1"/>
             <xs:element name="dataResolver" type="object" minOccurs="0" maxOccurs="1"/>
             <xs:element name="saveHandler" type="object" minOccurs="0" maxOccurs="1"/>
-        </xs:sequence>
+        </xs:all>
         <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:complexType>
 </xs:schema>
