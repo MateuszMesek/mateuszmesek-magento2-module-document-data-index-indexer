@@ -12,14 +12,17 @@ class DimensionalIndexer implements DimensionalIndexerInterface
 {
     private SaveHandlerInterface $saveHandler;
     private DataResolverInterface $dataResolver;
+    private int $batchSize;
 
     public function __construct(
         SaveHandlerInterface  $saveHandler,
-        DataResolverInterface $dataResolver
+        DataResolverInterface $dataResolver,
+        int $batchSize = 100
     )
     {
         $this->saveHandler = $saveHandler;
         $this->dataResolver = $dataResolver;
+        $this->batchSize = $batchSize;
     }
 
     public function executeByDimensions(array $dimensions, Traversable $entityIds): void
@@ -28,25 +31,50 @@ class DimensionalIndexer implements DimensionalIndexerInterface
             return;
         }
 
-        $documents = $this->dataResolver->resolve($dimensions, $entityIds);
+        $batchesIds = $this->batchIds($entityIds);
 
-        $toDelete = [];
-        $toSave = [];
+        foreach ($batchesIds as $batchIds) {
+            $documents = $this->dataResolver->resolve($dimensions, $batchIds);
 
-        foreach ($documents as $documentId => $document) {
-            if (empty($document)) {
-                $toDelete[] = $documentId;
-            } else {
-                $toSave[$documentId] = $document;
+            $toDelete = [];
+            $toSave = [];
+
+            foreach ($documents as $documentId => $document) {
+                if (empty($document)) {
+                    $toDelete[] = $documentId;
+                } else {
+                    $toSave[$documentId] = $document;
+                }
+            }
+
+            if (!empty($toDelete)) {
+                $this->saveHandler->deleteIndex($dimensions, new ArrayIterator($toDelete));
+            }
+
+            if (!empty($toSave)) {
+                $this->saveHandler->saveIndex($dimensions, new ArrayIterator($toSave));
+            }
+        }
+    }
+
+    private function batchIds(Traversable $entityIds): Traversable
+    {
+        $batchSize = 0;
+        $batchIds = [];
+
+        foreach ($entityIds as $entityId) {
+            $batchSize++;
+            $batchIds[] = $entityId;
+
+            if ($this->batchSize === $batchSize) {
+                $batchSize = 0;
+
+                yield new ArrayIterator($batchIds);
             }
         }
 
-        if (!empty($toDelete)) {
-            $this->saveHandler->deleteIndex($dimensions, new ArrayIterator($toDelete));
-        }
-
-        if (!empty($toSave)) {
-            $this->saveHandler->saveIndex($dimensions, new ArrayIterator($toSave));
+        if ($batchSize) {
+            yield new ArrayIterator($batchIds);
         }
     }
 }
