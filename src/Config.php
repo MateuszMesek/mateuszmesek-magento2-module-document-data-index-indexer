@@ -3,13 +3,14 @@
 namespace MateuszMesek\DocumentDataIndexIndexer;
 
 use Magento\Framework\Config\DataInterface;
+use MateuszMesek\DocumentDataApi\Config\DocumentNamesInterface;
 use MateuszMesek\DocumentDataIndexIndexerApi\Config\DataResolverInterface;
 use MateuszMesek\DocumentDataIndexIndexerApi\Config\DimensionProviderInterface;
 use MateuszMesek\DocumentDataIndexIndexerApi\Config\EntityIdsResolverInterface;
 use MateuszMesek\DocumentDataIndexIndexerApi\Config\IndexNameResolverInterface;
 use MateuszMesek\DocumentDataIndexIndexerApi\Config\SaveHandlerInterface;
 
-class Config implements DimensionProviderInterface, DataResolverInterface, SaveHandlerInterface, IndexNameResolverInterface, EntityIdsResolverInterface
+class Config implements DocumentNamesInterface, DimensionProviderInterface, DataResolverInterface, SaveHandlerInterface, IndexNameResolverInterface, EntityIdsResolverInterface
 {
     private DataInterface $data;
 

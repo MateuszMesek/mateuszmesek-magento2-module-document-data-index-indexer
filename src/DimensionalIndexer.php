@@ -67,9 +67,10 @@ class DimensionalIndexer implements DimensionalIndexerInterface
             $batchIds[] = $entityId;
 
             if ($this->batchSize === $batchSize) {
-                $batchSize = 0;
-
                 yield new ArrayIterator($batchIds);
+
+                $batchSize = 0;
+                $batchIds = [];
             }
         }
 

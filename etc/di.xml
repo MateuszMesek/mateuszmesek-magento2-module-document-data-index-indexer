@@ -37,6 +37,11 @@
     <type name="Magento\Framework\Indexer\Config\Reader">
         <plugin name="MateuszMesek_DocumentDataIndexIndexer" type="MateuszMesek\DocumentDataIndexIndexer\Plugin\InjectIndexers\OnIndexerConfigReader"/>
     </type>
+    <type name="MateuszMesek\DocumentDataIndexIndexer\Action">
+        <arguments>
+            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DimensionalIndexer</argument>
+        </arguments>
+    </type>
     <type name="MateuszMesek\DocumentDataIndexIndexer\Action\ExecutorFactory">
         <arguments>
             <argument name="types" xsi:type="array">
@@ -44,21 +49,6 @@
                 <item name="row" xsi:type="string">MateuszMesek\DocumentDataIndexIndexer\Action\Row</item>
                 <item name="rows" xsi:type="string">MateuszMesek\DocumentDataIndexIndexer\Action\Rows</item>
             </argument>
-        </arguments>
-    </type>
-    <type name="MateuszMesek\DocumentDataIndexIndexer\Action\Full">
-        <arguments>
-            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DimensionalIndexer</argument>
-        </arguments>
-    </type>
-    <type name="MateuszMesek\DocumentDataIndexIndexer\Action\Row">
-        <arguments>
-            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DimensionalIndexer</argument>
-        </arguments>
-    </type>
-    <type name="MateuszMesek\DocumentDataIndexIndexer\Action\Rows">
-        <arguments>
-            <argument name="dimensionalIndexer" xsi:type="object">MateuszMesek\DocumentDataIndexIndexer\DimensionalIndexer</argument>
         </arguments>
     </type>
     <!-- mview -->

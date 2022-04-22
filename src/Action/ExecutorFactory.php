@@ -3,6 +3,7 @@
 namespace MateuszMesek\DocumentDataIndexIndexer\Action;
 
 use InvalidArgumentException;
+use Magento\Framework\Indexer\DimensionalIndexerInterface;
 use Magento\Framework\Indexer\DimensionProviderInterface;
 use Magento\Framework\ObjectManager\TMapFactory;
 use Magento\Framework\ObjectManagerInterface;
@@ -21,16 +22,21 @@ class ExecutorFactory
         $this->types = $types;
     }
 
-    public function create(string $type, DimensionProviderInterface $dimensionProvider): ExecutorInterface
+    public function create(
+        string $type,
+        DimensionProviderInterface $dimensionProvider,
+        DimensionalIndexerInterface $dimensionalIndexer
+    ): ExecutorInterface
     {
         $executor = $this->TMapFactory->create([
             'type' => ExecutorInterface::class,
             'array' => $this->types,
-            'objectCreationStrategy' => static function (ObjectManagerInterface $objectManager, string $objectName) use ($dimensionProvider) {
+            'objectCreationStrategy' => static function (ObjectManagerInterface $objectManager, string $objectName) use ($dimensionProvider, $dimensionalIndexer) {
                 return $objectManager->create(
                     $objectName,
                     [
-                        'dimensionProvider' => $dimensionProvider
+                        'dimensionProvider' => $dimensionProvider,
+                        'dimensionalIndexer' => $dimensionalIndexer
                     ]
                 );
             }

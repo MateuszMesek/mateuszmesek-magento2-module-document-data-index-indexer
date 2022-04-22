@@ -4,6 +4,7 @@ namespace MateuszMesek\DocumentDataIndexIndexer;
 
 use InvalidArgumentException;
 use Magento\Framework\Indexer\ActionInterface;
+use Magento\Framework\Indexer\DimensionalIndexerInterface;
 use MateuszMesek\DocumentDataIndexIndexer\Action\DimensionProviderFactory;
 use MateuszMesek\DocumentDataIndexIndexer\Action\ExecutorFactory;
 use MateuszMesek\DocumentDataIndexIndexer\Action\Full;
@@ -14,11 +15,13 @@ class Action implements ActionInterface
 {
     private DimensionProviderFactory $dimensionProviderFactory;
     private ExecutorFactory $executorFactory;
+    private DimensionalIndexerInterface $dimensionalIndexer;
     private string $documentName;
 
     public function __construct(
         DimensionProviderFactory $dimensionProviderFactory,
         ExecutorFactory $executorFactory,
+        DimensionalIndexerInterface $dimensionalIndexer,
         array $data
     )
     {
@@ -28,6 +31,7 @@ class Action implements ActionInterface
 
         $this->dimensionProviderFactory = $dimensionProviderFactory;
         $this->executorFactory = $executorFactory;
+        $this->dimensionalIndexer = $dimensionalIndexer;
         $this->documentName = $data['document_name'];
     }
 
@@ -54,7 +58,8 @@ class Action implements ActionInterface
 
         $executor = $this->executorFactory->create(
             $actionType,
-            $dimensionProvider
+            $dimensionProvider,
+            $this->dimensionalIndexer
         );
 
         /* @noinspection VariableFunctionsUsageInspection */
