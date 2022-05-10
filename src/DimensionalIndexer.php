@@ -41,7 +41,7 @@ class DimensionalIndexer implements DimensionalIndexerInterface
 
             foreach ($documents as $documentId => $document) {
                 if (empty($document)) {
-                    $toDelete[] = $documentId;
+                    $toDelete[$documentId] = $document;
                 } else {
                     $toSave[$documentId] = $document;
                 }
