@@ -26,7 +26,10 @@
             <xs:element name="entityIdsResolver" type="object" minOccurs="0" maxOccurs="1"/>
             <xs:element name="indexNamesProvider" type="object" minOccurs="0" maxOccurs="1"/>
             <xs:element name="indexNameResolver" type="object" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="indexStructureBuilder" type="object" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="indexIdsResolver" type="object" minOccurs="0" maxOccurs="1"/>
             <xs:element name="dataResolver" type="object" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="readHandler" type="object" minOccurs="0" maxOccurs="1"/>
             <xs:element name="saveHandler" type="object" minOccurs="0" maxOccurs="1"/>
         </xs:all>
         <xs:attribute name="name" type="xs:string" use="required"/>

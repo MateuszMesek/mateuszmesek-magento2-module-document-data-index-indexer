@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="document_data_ids_pattern" engine="innodb" comment="Document Data IDs Pattern">
+        <column xsi:type="bigint" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="document_id" length="255" nullable="false" comment="Document ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="DOCUMENT_DATA_IDS_UNIQUE">
+            <column name="document_id"/>
+        </constraint>
+    </table>
+</schema>

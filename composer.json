@@ -3,11 +3,13 @@
     "description": "N/A",
     "type": "magento2-module",
     "require": {
+        "php": ">=8.1",
         "ext-dom": "*",
         "magento/framework": "*",
         "magento/module-indexer": "*",
-        "mateuszmesek-magento2/module-document-data-api": "*",
-        "mateuszmesek-magento2/module-document-data-index-indexer-api": "*",
+        "magento/module-store": "*",
+        "mateuszmesek-magento2/module-document-data-api": "^1.0",
+        "mateuszmesek-magento2/module-document-data-index-indexer-api": "^1.0",
         "mateuszmesek-magento2/module-indexer-console": "*"
     },
     "license": [
@@ -18,7 +20,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "MateuszMesek\\DocumentDataIndexIndexer\\": "src"
+            "MateuszMesek\\DocumentDataIndexIndexer\\": ""
         }
     }
 }

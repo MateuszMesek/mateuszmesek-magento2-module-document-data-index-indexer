@@ -1,0 +1,12 @@
+{
+    "document_data_ids_pattern": {
+        "column": {
+            "id": true,
+            "document_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "DOCUMENT_DATA_IDS_UNIQUE": true
+        }
+    }
+}

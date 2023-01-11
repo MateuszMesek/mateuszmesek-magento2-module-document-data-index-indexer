@@ -3,6 +3,7 @@
     <module name="MateuszMesek_DocumentDataIndexIndexer">
         <sequence>
             <module name="Magento_Indexer"/>
+            <module name="Magento_Store"/>
         </sequence>
     </module>
 </config>
